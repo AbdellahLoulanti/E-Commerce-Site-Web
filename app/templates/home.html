@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- Banner Section -->
+    <div class="relative">
+        <img src="{{ url_for('static', filename='images/R.jpg') }}" alt="Summer Collection" class="w-full h-64 object-cover" style="width: 100%;height: 600px;">
+        <div class="absolute inset-0 flex flex-col items-start justify-center text-white bg-black bg-opacity-50 p-8" >
+            <h1 class="text-5xl font-bold" style="margin-left: 40px;">New Collection</h1>
+            <p class="text-3xl mt-2" style="margin-left: 40px;">Cool Mens Style Up To 40% OFF</p>
+            <a href="{{ url_for('show_products') }}" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 40px;">Shop Now</a>
+        </div>
+    </div>
+    
+    <!-- info Section -->
+    <div id="info" class="info-section" style="margin-top:40px">
+        <div class="info-box">
+            <i class="fas fa-truck"></i>
+            <h3>Livraison Gratuite</h3>
+            <p>Livraison partout au Maroc</p>
+        </div>
+        <div class="info-box">
+            <i class="fas fa-money-bill-wave"></i>
+            <h3>Modes de paiement</h3>
+            <p>Paiement à la livraison</p>
+        </div>
+        <div class="info-box">
+            <i class="fas fa-phone"></i>
+            <h3>Appelez-nous</h3>
+            <p>0604800980</p>
+        </div>
+    </div>
+
+    <!-- Recent Products Section -->
+    <div class="container mx-auto px-4 py-6" >
+        <h1 class="text-2xl font-bold mb-6" style="text-align: center;padding: 20px;">Recent Products</h1>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in recent_products %}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden product-card transition-transform transform hover:scale-105" style="height: 470px;">
+                <img style="height: 330px;" src="{{ url_for('static', filename='product_pics/' ~ product.image_file) }}" 
+                     srcset="{{ url_for('static', filename='product_pics/' ~ product.image_file) }} 1x, 
+                             {{ url_for('static', filename='product_pics/' ~ product.image_file) }} 2x" 
+                     alt="{{ product.name }}">
+                <div class="p-4">
+                    <div style="margin-top: -7px;">
+                    <h2 class="text-lg font-semibold mb-2">{{ product.name }}</h2>
+                    <p class="text-gray-700 mb-2">{{ product.price }}MAD</p>
+                    </div>
+                    <button style="margin-top: 5px;" class="button bg-purple-500 text-white font-bold py-2 px-4 rounded hover:bg-purple-700" >    
+                    <a href="{{ url_for('reserve_product', product_id=product.id) }}" style="color: white; text-decoration: none;">Buy it now</a>
+                    </button>
+                </div>
+            </a>
+        </div>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <!-- About Section -->
+    <div id="about" class="container mx-auto px-4 py-6">
+        <div class="flex items-center">
+            <div class="w-1/2 pl-6 bg-gray-100 p-8 rounded-lg shadow-lg" style="margin-top:16px;">
+                <h2 class="text-4xl font-extrabold mb-4 text-600" style="color: rgb(81, 92, 114);">About Our Collection</h2>
+                <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                    Discover our latest collection featuring trendy and stylish men's clothing. From casual wear to formal attire, our summer collection is designed to keep you looking sharp and feeling comfortable. Enjoy discounts up to 40% on selected items. Shop now and revamp your wardrobe with the latest fashion trends.
+                </p>
+                <a href="{{ url_for('show_products') }}" class="inline-block bg-blue-600 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                    Shop the Collection
+                </a>
+            </div>
+            
+            <div class="w-1/2 image-container">
+                <img style="width:500px;height: 400px;margin-top: 30px;margin-left: 80px;" src="{{ url_for('static', filename='images/f.jpg') }}" alt="About Our Collection" class="object-cover rounded-lg shadow-lg">
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+<footer id="contact" class="bg-gray-900 text-white py-12" style="height:350px;margin-top:80px;">
+    <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <!-- About Us -->
+        <div>
+            <h3 class="text-2xl font-bold mb-4">About Us</h3>
+            <p class="text-gray-400">
+                We are passionate about bringing you the latest in fashion and style. Our mission is to offer high-quality, trendy clothing at unbeatable prices. Join us on our journey to redefine fashion.
+            </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h3 class="text-2xl font-bold mb-4">Quick Links</h3>
+            <ul>
+                <li class="mb-2"><a href="{{ url_for('home') }}" class="text-gray-400 hover:text-white">Home</a></li>
+                <li class="mb-2"><a href="{{ url_for('show_products') }}" class="text-gray-400 hover:text-white">Products</a></li>
+                <li class="mb-2"><a href="{{ url_for('home') }}#about" class="text-gray-400 hover:text-white">About Us</a></li>
+                <li class="mb-2"><a href="{{ url_for('home') }}#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div>
+            <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+            <ul>
+                <li class="mb-2">
+                    <a href="mailto:info@example.com" class="text-gray-400 hover:text-white">abde@gmail.com</a>
+                </li>
+                <li class="mb-2">
+                    <a href="tel:+1234567890" class="text-gray-400 hover:text-white">+123 456 7890</a>
+                </li>
+                <li class="mb-2">
+                    <p class="text-gray-400">123 Fashion Street, Tetouan, morocco</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+            <h3 class="text-2xl font-bold mb-4">Follow Us</h3>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/springshop10/" class="text-gray-400 hover:text-white">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="border-t border-gray-800 mt-8 pt-6 text-center">
+        <p class="text-gray-400">© 2024 Your Company. All rights reserved.</p>
+    </div>
+</footer>
+
+{% endblock %}

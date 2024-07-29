@@ -1,0 +1,12 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-WTF
+email-validator
+requests
+Pillow
+prometheus-flask-exporter
+
+
+
+

@@ -1,0 +1,53 @@
+{% extends "basead.html" %}
+{% block content %}
+<div class="container mx-auto mt-8">
+    
+    <h1 class="text-3xl font-bold mb-4" style="margin-left:15px;">Admin Dashboard</h1>
+    <div class="flex justify-between items-center" style="margin: 0 auto; width: 40%;">
+        <a href="{{ url_for('admin_reservations') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">View Commandes</a>
+        <a href="{{ url_for('add_product') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">Add New Product</a>
+    </div>
+    
+
+    {% for category in categories %}
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h2 class="text-2xl font-bold mb-4">{{ category.name }}</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b text-center">ID</th>
+                        <th class="py-2 px-4 border-b text-center">Image</th>
+                        <th class="py-2 px-4 border-b text-center">Name</th>
+                        <th class="py-2 px-4 border-b text-center">Price</th>
+                        <th class="py-2 px-4 border-b text-center">Size available </th>
+                        <th class="py-2 px-4 border-b text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in category.products %}
+                    <tr class="hover:bg-gray-100">
+                        <td class="py-2 px-4 border-b text-center">{{ product.id }}</td>
+                        <td class="py-2 px-4 border-b text-center">
+                            <div class="flex justify-center">
+                                <img src="{{ url_for('static', filename='product_pics/' ~ product.image_file) }}" alt="{{ product.name }}" class="h-16 w-16 object-cover">
+                            </div>
+                        </td>
+                        <td class="py-2 px-4 border-b text-center">{{ product.name }}</td>
+                        <td class="py-2 px-4 border-b text-center">{{ product.price }}</td>
+                        <td class="py-2 px-4 border-b text-center">{{ product.available_sizes }}</td>
+                        <td class="py-2 px-4 border-b text-center">
+                            <a href="{{ url_for('edit_product', product_id=product.id) }}" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 mr-2">Edit</a>
+                            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 transition duration-300" onclick="return confirm('Are you sure you want to delete this product?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

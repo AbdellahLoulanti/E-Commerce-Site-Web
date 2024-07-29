@@ -1,0 +1,46 @@
+{% extends "basead.html" %}
+{% block content %}
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold mb-4" style="margin-left:15px;">Reservations</h1>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b text-center">ID</th>
+                    <th class="py-2 px-4 border-b text-center">Full Name</th>
+                    <th class="py-2 px-4 border-b text-center">Phone</th>
+                    <th class="py-2 px-4 border-b text-center">Email</th>
+                    <th class="py-2 px-4 border-b text-center">Address</th>
+                    <th class="py-2 px-4 border-b text-center">Product</th>
+                    <th class="py-2 px-4 border-b text-center">Size</th>
+                    <th class="py-2 px-4 border-b text-center">Status</th>
+                    <th class="py-2 px-4 border-b text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.id }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.full_name }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.phone_number }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.email }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.address }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.product.name }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.size }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ reservation.status }}</td>
+                    <td class="py-2 px-4 border-b text-center">
+                        {% if reservation.status != 'Completed' %}
+                        <form action="{{ url_for('complete_reservation', reservation_id=reservation.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Complete</button>
+                        </form>
+                        {% else %}
+                        <span class="text-green-500 font-bold">Completed</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container mx-auto px-4 py-6" style="margin-top:-18px;">
+        <h1 class="text-2xl font-bold mb-6">Products</h1>
+        {% for category in categories %}
+            <h2 class="text-xl font-semibold mb-4">{{ category.name }}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                {% for product in category.products %}
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden product-card transition-transform transform hover:scale-105">
+                            <img src="{{ url_for('static', filename='product_pics/' ~ product.image_file) }}" 
+                                 srcset="{{ url_for('static', filename='product_pics/' ~ product.image_file) }} 1x, 
+                                         {{ url_for('static', filename='product_pics/' ~ product.image_file) }} 2x" 
+                                 alt="{{ product.name }}">
+                            <div class="p-4">
+                                <div style="margin-top: -7px;">
+                                <h2 class="text-lg font-semibold mb-2">{{ product.name }}</h2>
+                                <p class="text-gray-700 mb-2"><span class="line-through text-red-500">250 MAD</span> {{ product.price }}MAD</p>
+                                </div>
+                                <button style="margin-top: 5px;" class="button bg-purple-500 text-white font-bold py-2 px-4 rounded hover:bg-purple-700" >    
+                                <a href="{{ url_for('reserve_product', product_id=product.id) }}" style="color: white; text-decoration: none;">Buy it now</a>
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

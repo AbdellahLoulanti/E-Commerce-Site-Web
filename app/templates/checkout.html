@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <button id="run-container">Run Container</button>
+
+    <script>
+        document.getElementById("run-container").addEventListener("click", function() {
+            fetch('/run-container')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.output) {
+                        alert("Success: " + data.output);
+                    } else {
+                        alert("Error: " + data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

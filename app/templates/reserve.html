@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-6">Demande {{ product.name }}</h1>
+    <div class="flex">
+        <div class="w-1/2">
+            <img src="{{ url_for('static', filename='product_pics/' ~ product.image_file) }}" alt="{{ product.name }}" class="w-full h-auto rounded-lg shadow-lg" style="width:400px;height:350px;margin-top:30px;margin-left:40px;">
+        </div>
+        <div class="w-1/2 pl-6" style="margin-top:20px;margin-right:70px;">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ form.full_name.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.full_name(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.phone_number.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.phone_number(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.email.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.email(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.address.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.address(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+                <div class="mb-4">
+                    {{ form.size.label(class="text-gray-700 text-sm font-bold mb-2") }}
+                    <div>
+                        {% for subfield in form.size %}
+                            <label class="inline-block text-gray-700 text-sm font-bold mb-2" style="padding: 18px;margin-left: 40px;">
+                                {{ subfield }} {{ subfield.label.text }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    {{ form.submit(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
